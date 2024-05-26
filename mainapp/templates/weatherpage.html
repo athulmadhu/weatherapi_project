@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Weather</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .city-card {
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .city-details {
+            display: flex;
+            align-items: center;
+        }
+        .city-details img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <h1>Weather Details</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter city name" name="city">
+        <button type="submit">Add City</button>
+    </form>
+
+    {% for weather in weatherdata %}
+
+    <div class="city-card">
+        <div class="city-details">
+            <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Clear">
+            <h2>{{weather.city}}</h2>
+        </div>
+        <p>--{{weather.temp}} °F--</p>
+        <p>{{weather.desc}}</p>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+
+</body>
+</html>
